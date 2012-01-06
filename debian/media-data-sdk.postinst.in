@@ -1,0 +1,132 @@
+#!/bin/sh
+
+#create db
+
+if  [ ! -f /opt/dbspace/.media.db ]
+then
+	sqlite3 /opt/dbspace/.media.db 'PRAGMA journal_mode = PERSIST;
+
+	CREATE TABLE visual_folder(uuid VARCHAR(256) PRIMARY KEY, path VARCHAR(256), folder_name VARCHAR(256), modified_date INT, web_account_id VARCHAR(256), storage_type INT, sns_type INT, lock_status INT, web_album_id VARCHAR(256), valid INT, unique(path, folder_name, web_album_id, storage_type) );
+	INSERT INTO "visual_folder" VALUES("51298053-feb7-4261-a1c8-26b05a6e0ae0","/opt/media/Images and videos/Wallpapers","Wallpapers",1319036976,"",0,0,0,"",1);
+	INSERT INTO "visual_folder" VALUES("fae82467-6e74-475c-8414-40f011130c6d","/opt/media/Images and videos/My photo clips","My photo clips",1319036976,"",0,0,0,"",1);
+	CREATE TABLE image_meta(_id INTEGER PRIMARY KEY AUTOINCREMENT, media_uuid VARCHAR(256), longitude DOUBLE, latitude DOUBLE, description VARCHAR(256), width INT, height INT, orientation INT, datetaken INT, unique(media_uuid) );
+	INSERT INTO "image_meta" VALUES(1,"b6a4f4ac-26ea-458c-a228-9aef7f70349d",1000.0,1000.0,"",0,0,0,0);
+	INSERT INTO "image_meta" VALUES(2,"5741094c-79a2-40ae-91a7-4b0ba70b366b",1000.0,1000.0,"No description",0,0,1,1275032096);
+	INSERT INTO "image_meta" VALUES(3,"769635f6-5b3f-4f8c-8ce3-9cc22fd18a18",1000.0,1000.0,"OLYMPUS DIGITAL CAMERA         ",480,800,1,1314080058);
+	INSERT INTO "image_meta" VALUES(4,"cf2455a0-8dd6-4aa5-af28-061aa378b942",1000.0,1000.0,"No description",480,800,1,1314079948);
+	INSERT INTO "image_meta" VALUES(5,"ab04839f-0ca8-4f09-bf05-b11b6c013338",1000.0,1000.0,"No description",0,0,1,1275032105);
+	INSERT INTO "image_meta" VALUES(6,"ab9dab5e-84f3-488f-80b4-bf9519bb8b4d",1000.0,1000.0,"No description",0,0,1,1314080226);
+	INSERT INTO "image_meta" VALUES(7,"ef878b75-b702-48da-8ced-a96366c62f8f",1000.0,1000.0,"No description",0,0,1,1275032089);
+	INSERT INTO "image_meta" VALUES(8,"4769e45d-d6a7-4bb9-adfa-a8526c6399d9",1000.0,1000.0,"No description",0,0,1,1314080205);
+	INSERT INTO "image_meta" VALUES(9,"badd17ba-33af-43f5-8b6e-fb5ab27ffa1e",1000.0,1000.0,"",0,0,0,0);
+	INSERT INTO "image_meta" VALUES(10,"b5737a1e-b996-4ab4-a904-94acb74ccac2",1000.0,1000.0,"No description",0,0,1,1314080438);
+	INSERT INTO "image_meta" VALUES(11,"47d256fb-4b73-4407-b3b6-4212fdcc6df9",1000.0,1000.0,"No description",0,0,1,1314080475);
+	INSERT INTO "image_meta" VALUES(12,"636085f9-dc32-424c-834d-507b47570408",1000.0,1000.0,"No description",800,480,1,1314079905);
+	INSERT INTO "image_meta" VALUES(13,"e9e15af2-3bde-4b00-b80e-863a23766652",1000.0,1000.0,"No description",0,0,1,1314079999);
+	INSERT INTO "image_meta" VALUES(14,"31864698-570b-4bf7-810f-4ff21ef59b3a",1000.0,1000.0,"No description",0,0,1,1314080514);
+	INSERT INTO "image_meta" VALUES(15,"c03ff01e-127c-477d-8b16-d37b190a120e",1000.0,1000.0,"No description",800,480,1,1314081698);
+	INSERT INTO "image_meta" VALUES(16,"f18b7e1d-33ae-4aec-a91f-459ea582b6b6",1000.0,1000.0,"No description",800,480,1,1314081785);
+	INSERT INTO "image_meta" VALUES(17,"bc6abfce-be75-491e-8fd5-3fa2cc0655e3",1000.0,1000.0,"No description",800,480,1,1314080794);
+	INSERT INTO "image_meta" VALUES(18,"e88465c3-fa79-4a85-bd71-a2c361dce064",1000.0,1000.0,"No description",0,0,1,1314080541);
+	INSERT INTO "image_meta" VALUES(19,"41f22cbf-3d56-4c57-93c0-895563c6a6f9",1000.0,1000.0,"No description",480,800,1,1314080732);
+	INSERT INTO "image_meta" VALUES(20,"6994e959-9836-46fd-b1c1-8dee03626672",1000.0,1000.0,"Light abstract",0,0,1,1314080907);
+	INSERT INTO "image_meta" VALUES(21,"5224cdb8-38fa-4166-a2b6-b4e3ce925abf",1000.0,1000.0,"No description",0,0,1,1314081867);
+	INSERT INTO "image_meta" VALUES(22,"5bc59529-38cd-417f-98c6-10ef34f1a8f9",1000.0,1000.0,"No description",0,0,1,1314080607);
+	INSERT INTO "image_meta" VALUES(23,"2a87a804-8815-4780-8b32-16d25a9e2140",1000.0,1000.0,"600-02700692
+© Ty Milford
+Model Release: Yes
+Property Release: No
+Portrait of Teenage Girl on a Farm in Hillsboro, Oregon, USA
+",0,0,1,1314080118);
+	INSERT INTO "image_meta" VALUES(24,"fff78f5c-73df-47db-b67a-3e59a7d45bbd",1000.0,1000.0,"No description",800,480,1,1314080851);
+	CREATE TABLE visual_media(uuid VARCHAR(256) PRIMARY KEY, path VARCHAR(256), folder_uuid VARCHAR(256), display_name VARCHAR(256), content_type INT, rating INT, modified_date INT, thumbnail_path VARCHAR(256), http_url VARCHAR(256), valid INT, unique(path, folder_uuid, display_name) );
+	INSERT INTO "visual_media" VALUES("b6a4f4ac-26ea-458c-a228-9aef7f70349d","/opt/media/Images and videos/Wallpapers/Home_default.jpg","51298053-feb7-4261-a1c8-26b05a6e0ae0","Home_default.jpg",1,0,1319036976,"/opt/data/file-manager-service/.thumb/phone/.jpg-8d9e0110dc6d094830ded887dd2ad527.jpg","",1);
+	INSERT INTO "visual_media" VALUES("5741094c-79a2-40ae-91a7-4b0ba70b366b","/opt/media/Images and videos/Wallpapers/Wallpaper5.jpg","51298053-feb7-4261-a1c8-26b05a6e0ae0","Wallpaper5.jpg",1,0,1319036976,"/opt/data/file-manager-service/.thumb/phone/.jpg-cb2528ab17ec0527da845ee35228fb13.jpg","",1);
+	INSERT INTO "visual_media" VALUES("769635f6-5b3f-4f8c-8ce3-9cc22fd18a18","/opt/media/Images and videos/Wallpapers/Wallpaper3.jpg","51298053-feb7-4261-a1c8-26b05a6e0ae0","Wallpaper3.jpg",1,0,1319036976,"/opt/data/file-manager-service/.thumb/phone/.jpg-cf07df90a101d1336f1738a4ef44e0f2.jpg","",1);
+	INSERT INTO "visual_media" VALUES("cf2455a0-8dd6-4aa5-af28-061aa378b942","/opt/media/Images and videos/Wallpapers/Wallpaper7.jpg","51298053-feb7-4261-a1c8-26b05a6e0ae0","Wallpaper7.jpg",1,0,1319036976,"/opt/data/file-manager-service/.thumb/phone/.jpg-2f08863e52fdeaf8269c3d0798e7aa0e.jpg","",1);
+	INSERT INTO "visual_media" VALUES("ab04839f-0ca8-4f09-bf05-b11b6c013338","/opt/media/Images and videos/Wallpapers/Wallpaper4.jpg","51298053-feb7-4261-a1c8-26b05a6e0ae0","Wallpaper4.jpg",1,0,1319036976,"/opt/data/file-manager-service/.thumb/phone/.jpg-8d575def31926dab9c3444517f0ba763.jpg","",1);
+	INSERT INTO "visual_media" VALUES("ab9dab5e-84f3-488f-80b4-bf9519bb8b4d","/opt/media/Images and videos/Wallpapers/Wallpaper2.jpg","51298053-feb7-4261-a1c8-26b05a6e0ae0","Wallpaper2.jpg",1,0,1319036976,"/opt/data/file-manager-service/.thumb/phone/.jpg-c38216c9e86f66c850d88f37b62ced95.jpg","",1);
+	INSERT INTO "visual_media" VALUES("ef878b75-b702-48da-8ced-a96366c62f8f","/opt/media/Images and videos/Wallpapers/Wallpaper6.jpg","51298053-feb7-4261-a1c8-26b05a6e0ae0","Wallpaper6.jpg",1,0,1319036976,"/opt/data/file-manager-service/.thumb/phone/.jpg-09d3315400eac70a922f3a7ede9df8c4.jpg","",1);
+	INSERT INTO "visual_media" VALUES("4769e45d-d6a7-4bb9-adfa-a8526c6399d9","/opt/media/Images and videos/Wallpapers/Wallpaper1.jpg","51298053-feb7-4261-a1c8-26b05a6e0ae0","Wallpaper1.jpg",1,0,1319036976,"/opt/data/file-manager-service/.thumb/phone/.jpg-c7f2a978a1ac7bbad254afd39f77c790.jpg","",1);
+	INSERT INTO "visual_media" VALUES("badd17ba-33af-43f5-8b6e-fb5ab27ffa1e","/opt/media/Images and videos/Wallpapers/Default.jpg","51298053-feb7-4261-a1c8-26b05a6e0ae0","Default.jpg",1,0,1319036976,"/opt/data/file-manager-service/.thumb/phone/.jpg-15293bd78669e304454a1708268e8dab.jpg","",1);
+	INSERT INTO "visual_media" VALUES("b5737a1e-b996-4ab4-a904-94acb74ccac2","/opt/media/Images and videos/My photo clips/photo12.jpg","fae82467-6e74-475c-8414-40f011130c6d","photo12.jpg",1,0,1319036976,"/opt/data/file-manager-service/.thumb/phone/.jpg-ea678d62a50a8a8fa2f8a493b8bcdf6c.jpg","",1);
+	INSERT INTO "visual_media" VALUES("47d256fb-4b73-4407-b3b6-4212fdcc6df9","/opt/media/Images and videos/My photo clips/photo7.jpg","fae82467-6e74-475c-8414-40f011130c6d","photo7.jpg",1,0,1319036976,"/opt/data/file-manager-service/.thumb/phone/.jpg-58d1b918487fff1ba07262d9166a4981.jpg","",1);
+	INSERT INTO "visual_media" VALUES("636085f9-dc32-424c-834d-507b47570408","/opt/media/Images and videos/My photo clips/photo15.jpg","fae82467-6e74-475c-8414-40f011130c6d","photo15.jpg",1,0,1319036976,"/opt/data/file-manager-service/.thumb/phone/.jpg-04f8195bfce6202a2322aed2ceb0aaed.jpg","",1);
+	INSERT INTO "visual_media" VALUES("e9e15af2-3bde-4b00-b80e-863a23766652","/opt/media/Images and videos/My photo clips/photo13.jpg","fae82467-6e74-475c-8414-40f011130c6d","photo13.jpg",1,0,1319036976,"/opt/data/file-manager-service/.thumb/phone/.jpg-b9f96473df36e848815e6fbdedcf1a3d.jpg","",1);
+	INSERT INTO "visual_media" VALUES("31864698-570b-4bf7-810f-4ff21ef59b3a","/opt/media/Images and videos/My photo clips/photo2.jpg","fae82467-6e74-475c-8414-40f011130c6d","photo2.jpg",1,0,1319036976,"/opt/data/file-manager-service/.thumb/phone/.jpg-dbcb75cd72b70319dfb1482d0fff09a4.jpg","",1);
+	INSERT INTO "visual_media" VALUES("c03ff01e-127c-477d-8b16-d37b190a120e","/opt/media/Images and videos/My photo clips/photo10.jpg","fae82467-6e74-475c-8414-40f011130c6d","photo10.jpg",1,0,1319036976,"/opt/data/file-manager-service/.thumb/phone/.jpg-4c077763be675571bdad7de710932c6c.jpg","",1);
+	INSERT INTO "visual_media" VALUES("f18b7e1d-33ae-4aec-a91f-459ea582b6b6","/opt/media/Images and videos/My photo clips/photo11.jpg","fae82467-6e74-475c-8414-40f011130c6d","photo11.jpg",1,0,1319036976,"/opt/data/file-manager-service/.thumb/phone/.jpg-c8178656b0badd239a5fe349172973bc.jpg","",1);
+	INSERT INTO "visual_media" VALUES("bc6abfce-be75-491e-8fd5-3fa2cc0655e3","/opt/media/Images and videos/My photo clips/photo9.jpg","fae82467-6e74-475c-8414-40f011130c6d","photo9.jpg",1,0,1319036976,"/opt/data/file-manager-service/.thumb/phone/.jpg-2d4725f4091c1f76339057f8932283ad.jpg","",1);
+	INSERT INTO "visual_media" VALUES("e88465c3-fa79-4a85-bd71-a2c361dce064","/opt/media/Images and videos/My photo clips/photo6.jpg","fae82467-6e74-475c-8414-40f011130c6d","photo6.jpg",1,0,1319036976,"/opt/data/file-manager-service/.thumb/phone/.jpg-42a14aac888f81c541c1e75a9d3c646b.jpg","",1);
+	INSERT INTO "visual_media" VALUES("41f22cbf-3d56-4c57-93c0-895563c6a6f9","/opt/media/Images and videos/My photo clips/photo8.jpg","fae82467-6e74-475c-8414-40f011130c6d","photo8.jpg",1,0,1319036976,"/opt/data/file-manager-service/.thumb/phone/.jpg-12ca468c994df62c7229a361c3a6c2a1.jpg","",1);
+	INSERT INTO "visual_media" VALUES("6994e959-9836-46fd-b1c1-8dee03626672","/opt/media/Images and videos/My photo clips/photo5.jpg","fae82467-6e74-475c-8414-40f011130c6d","photo5.jpg",1,0,1319036976,"/opt/data/file-manager-service/.thumb/phone/.jpg-dba7e8be66fcbb8432f24748843be0f7.jpg","",1);
+	INSERT INTO "visual_media" VALUES("5224cdb8-38fa-4166-a2b6-b4e3ce925abf","/opt/media/Images and videos/My photo clips/photo1.jpg","fae82467-6e74-475c-8414-40f011130c6d","photo1.jpg",1,0,1319036976,"/opt/data/file-manager-service/.thumb/phone/.jpg-47c85fd4843d87421e8cd37a1f4b6a66.jpg","",1);
+	INSERT INTO "visual_media" VALUES("5bc59529-38cd-417f-98c6-10ef34f1a8f9","/opt/media/Images and videos/My photo clips/photo4.jpg","fae82467-6e74-475c-8414-40f011130c6d","photo4.jpg",1,0,1319036976,"/opt/data/file-manager-service/.thumb/phone/.jpg-69ebae1d11cf7f142b7a87f9e893220e.jpg","",1);
+	INSERT INTO "visual_media" VALUES("2a87a804-8815-4780-8b32-16d25a9e2140","/opt/media/Images and videos/My photo clips/photo3.jpg","fae82467-6e74-475c-8414-40f011130c6d","photo3.jpg",1,0,1319036976,"/opt/data/file-manager-service/.thumb/phone/.jpg-2ba2cd51e93faf54c1c2b29a19fd97d0.jpg","",1);
+	INSERT INTO "visual_media" VALUES("fff78f5c-73df-47db-b67a-3e59a7d45bbd","/opt/media/Images and videos/My photo clips/photo14.jpg","fae82467-6e74-475c-8414-40f011130c6d","photo14.jpg",1,0,1319036976,"/opt/data/file-manager-service/.thumb/phone/.jpg-4264c236d768fa532d1059414215633c.jpg","",1);
+	CREATE TABLE video_bookmark(_id INTEGER PRIMARY KEY AUTOINCREMENT, media_uuid VARCHAR(256), marked_time INT, thumbnail_path VARCHAR(256), unique( media_uuid, marked_time) );
+	CREATE TABLE video_meta(_id INTEGER PRIMARY KEY AUTOINCREMENT, media_uuid VARCHAR(256), album VARCHAR(256), artist VARCHAR(256), title VARCHAR(256), description VARCHAR(256), youtube_category VARCHAR(256), last_played_time INT, duration INT, longitude DOUBLE, latitude DOUBLE, width INT, height INT, datetaken INT, unique(media_uuid) );
+	CREATE TABLE web_streaming(_id INTEGER PRIMARY KEY AUTOINCREMENT, folder_id INT, folder_uuid VARCHAR(256), title VARCHAR(256), duration INT, url VARCHAR(256), thumb_path VARCHAR(256));
+	CREATE TABLE visual_tag_map(_id INTEGER PRIMARY KEY AUTOINCREMENT, media_uuid VARCHAR(256), tag_id INT, unique( media_uuid, tag_id) );
+	CREATE TABLE visual_tag(_id INTEGER PRIMARY KEY AUTOINCREMENT, tag_name VARCHAR(256), unique( tag_name) );
+	CREATE TABLE audio_media (audio_id text primary key, path text unique, thumbnail_path text, title text, album text, artist text, genre text, author text, year integer default -1, copyright text, description text, format text, bitrate integer default -1, track_num integer default -1, duration integer default -1, rating integer default 0, played_count integer default 0, last_played_time integer default -1, added_time integer, rated_time integer, album_rating integer default 0, modified_date integer default 0, size integer default 0, category INTEGER default 0, valid integer default 0, folder_id TEXT NOT NULL, storage_type integer, favourite   integer default 0, content_type integer default 3);
+	CREATE TABLE audio_folder (_id TEXT primary key, path text, folder_name text, storage_type integer, modified_date integer default 0);
+	CREATE TABLE audio_playlists (_id integer primary key autoincrement, name text);
+	CREATE TABLE audio_playlists_map (_id integer primary key autoincrement, playlist_id integer, audio_id TEXT NOT NULL, play_order INTEGER);
+	DELETE FROM sqlite_sequence;
+	INSERT INTO "sqlite_sequence" VALUES("image_meta",24);
+	INSERT INTO "sqlite_sequence" VALUES("video_meta",1);
+	CREATE INDEX f_mid_idx on visual_media(folder_uuid);
+	CREATE INDEX fid_idx on visual_folder(uuid);
+	CREATE INDEX m_date_idx on visual_media(modified_date);
+	CREATE INDEX mid_idx on visual_media(uuid);
+
+	CREATE VIEW item_view AS select uuid as item_id, path as file_path, display_name,thumbnail_path as thumbnail,modified_date as date_modified, folder_uuid, rating as favourite, content_type from visual_media where valid=1 union select  audio_id ,path ,title ,thumbnail_path, modified_date, folder_id, favourite, content_type from audio_media;
+	CREATE VIEW mediainfo_folder AS select uuid as folder_uuid, path, folder_name as name, storage_type from visual_folder where valid=1 union select _id as folder_uuid, path, folder_name, storage_type from audio_folder;
+
+'
+fi
+
+if [ "${USER}" == "root" ]
+then
+        if  [ -f /opt/dbspace/.media.db ]
+        then
+                chown root:6017 /opt/dbspace/.media.db
+                chown root:6017 /opt/dbspace/.media.db-journal
+        fi
+fi
+
+if  [ -f /opt/dbspace/.media.db ]
+then
+        chmod 664 /opt/dbspace/.media.db
+        chmod 664 /opt/dbspace/.media.db-journal
+fi
+
+
+if [ "${USER}" == "root" ]
+	chgrp 5000 /opt/data/file-manager-service/.thumb
+	chgrp 5000 /opt/data/file-manager-service/.thumb/phone
+	chgrp 5000 /opt/data/file-manager-service/.thumb/mmc
+then
+##resources
+	chown :5000 /opt/dbspace
+#	chown :6017 /opt/dbspace/internal.db
+	chown :5000 /opt/data/file-manager-service/.thumb/phone/.[a-z0-9]*.*
+fi
+
+##resources
+#chmod 664 /opt/dbspace/internal.db
+chmod 775 /opt/data/file-manager-service/.thumb
+chmod 775 /opt/data/file-manager-service/.thumb/phone
+chmod 775 /opt/data/file-manager-service/.thumb/mmc
+rm /opt/media/Camera\ shots/.gitignore
+rm /opt/media/Sounds\ and\ music/Voice\ recorder/.gitignore
+rm /opt/media/Sounds\ and\ music/FM\ Radio/.gitignore
+rm /opt/media/Sounds\ and\ music/Alerts/*.*
+rm /opt/media/Sounds\ and\ music/Ringtones/*.*
+rm /opt/media/Sounds\ and\ music/Music/.gitignore
+rm /opt/media/Downloads/.gitignore
+rm /opt/media/Images\ and\ videos/My\ video\ clips/.gitignore
+
+
+
