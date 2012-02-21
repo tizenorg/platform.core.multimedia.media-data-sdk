@@ -1,3 +1,11 @@
+media-data-sdk (0.1.7) unstable; urgency=low
+
+  * fix bug : media db is not commit at install package
+  * Git : pkgs/m/media-data-sdk
+  * Tag : media-data-sdk_0.1.7 
+
+ -- Yong Yeon Kim <yy9875.kim@samsung.com>  Tue, 21 Feb 2012 15:55:25 +0900
+
 media-data-sdk (0.1.6) unstable; urgency=low
 
   * for beta release

@@ -5,8 +5,6 @@
 if  [ ! -f /opt/dbspace/.media.db ]
 then
 	sqlite3 /opt/dbspace/.media.db 'PRAGMA journal_mode = PERSIST;
-PRAGMA foreign_keys=OFF;
-BEGIN TRANSACTION;
 	CREATE TABLE visual_folder(folder_uuid VARCHAR(256) PRIMARY KEY, path VARCHAR(256), folder_name VARCHAR(256), modified_date INT, web_account_id VARCHAR(256), storage_type INT, sns_type INT, lock_status INT, web_album_id VARCHAR(256), valid INT, unique(path, folder_name, web_album_id, storage_type) );
 	INSERT INTO "visual_folder" VALUES("31e8854f-fa38-499c-ad0b-ebd7fc195f72","/opt/media/Images","Images",946990496,"",0,0,0,"",1);
 	INSERT INTO "visual_folder" VALUES("e81fcc9c-ce4c-478c-b8de-6f3abc4219ae","/opt/media/Images/Wallpapers","Wallpapers",946990496,"",0,0,0,"",1);
