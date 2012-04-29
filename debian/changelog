@@ -1,3 +1,35 @@
+media-data-sdk (0.1.13) unstable; urgency=low
+
+  * change background image of menu screen
+  * Git : pkgs/m/media-data-sdk
+  * Tag : media-data-sdk_0.1.13
+
+ -- Yong Yeon Kim <yy9875.kim@samsung.com>  Sat, 21 Apr 2012 14:47:40 +0900
+
+media-data-sdk (0.1.12) unstable; urgency=low
+
+  * merge for 1.0 release
+  * Git : pkgs/m/media-data-sdk
+  * Tag : media-data-sdk_0.1.12
+
+ -- Yong Yeon Kim <yy9875.kim@samsung.com>  Fri, 30 Mar 2012 14:53:35 +0900
+
+media-data-sdk (0.1.11) unstable; urgency=low
+
+  * merge for 1.0 release
+  * Git : pkgs/m/media-data-sdk
+  * Tag : media-data-sdk_0.1.11
+
+ -- Yong Yeon Kim <yy9875.kim@samsung.com>  Wed, 28 Mar 2012 14:56:58 +0900
+
+media-data-sdk (0.1.8) unstable; urgency=low
+
+  * merge for 1.0 release
+  * Git : pkgs/m/media-data-sdk
+  * Tag : media-data-sdk_0.1.8
+
+ -- Yong Yeon Kim <yy9875.kim@samsung.com>  Tue, 20 Mar 2012 10:15:45 +0900
+
 media-data-sdk (0.1.7) unstable; urgency=low
 
   * fix bug : media db is not commit at install package

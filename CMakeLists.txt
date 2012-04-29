@@ -1,5 +1,5 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
-PROJECT(media-data-sdkC)
+PROJECT(media-data-sdk C)
 
 # install media-data
 # NEW FOLDER POLICY
@@ -18,8 +18,6 @@ INSTALL(DIRECTORY ${CMAKE_BINARY_DIR}/data/Alerts\ and\ ringtones/Alerts DESTINA
 INSTALL(DIRECTORY ${CMAKE_BINARY_DIR}/data/Alerts\ and\ ringtones/Ringtones DESTINATION share/settings PATTERN "*" PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_WRITE GROUP_EXECUTE WORLD_READ WORLD_WRITE WORLD_EXECUTE)
 
 # install media-data database 
-## Splusa
-#INSTALL(FILES ${CMAKE_BINARY_DIR}/data/dbspace/internal.db DESTINATION dbspace)
 ## thumbnails
-INSTALL(DIRECTORY ${CMAKE_BINARY_DIR}/data/dbspace/file-manager-service/.thumb DESTINATION data/file-manager-service)
+INSTALL(DIRECTORY ${CMAKE_BINARY_DIR}/data/dbspace/file-manager-service/ DESTINATION data/file-manager-service)
 

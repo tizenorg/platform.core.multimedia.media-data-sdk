@@ -1,17 +1,18 @@
+#sbs-git:slp/pkgs/m/media-data media-data 0.1.91 bf79c07d3fb5086d1bf9a99771a956c804a5a736
 %define _optdir	/opt
 
 Name:       media-data-sdk
-Summary:    Media data. Image/Sounds/Videos and Others.
-Version:    0.1.7
+Summary:    Media data for SDK. Image/Sounds/Videos and Others.
+Version: 0.1.13
 Release:    1
-Group:      TO_BE/FILLED_IN
-License:    Apache-2.0
+Group:      Service  
+License:    Apache-2.0  
 Source0:    %{name}-%{version}.tar.gz
 BuildRequires: cmake
 
 
 %description
-Description: Media data. Image/Sounds/Videos and Others.
+Description: Media data for SDK. Image/Sounds/Videos and Others.
 
 
 %prep
@@ -26,27 +27,14 @@ make %{?jobs:-j%jobs}
 %install
 %make_install
 
-rm -f $RPM_BUILD_ROOT"/opt/media/Downloads/.gitignore"
-rm -f $RPM_BUILD_ROOT"/opt/media/Music/.gitignore"
-rm -f $RPM_BUILD_ROOT"/opt/media/Videos/.gitignore"
-rm -f $RPM_BUILD_ROOT"/opt/media/Camera\ shots/.gitignore"
-rm -f $RPM_BUILD_ROOT"/opt/media/Music/Voice\ recorder/.gitignore"
-rm -f $RPM_BUILD_ROOT"/opt/media/Music/FM\ Radio/.gitignore"
-rm -f $RPM_BUILD_ROOT"/opt/media/Bookmark/.gitignore"
-rm -f $RPM_BUILD_ROOT"/opt/media/RSS/.gitignore"
-rm -f $RPM_BUILD_ROOT"/opt/media/Alerts\ and\ ringtones/Alerts/*.*
-rm -f $RPM_BUILD_ROOT"/opt/media/Alerts\ and\ ringtones/Ringtones/*.*
-rm -f $RPM_BUILD_ROOT"/opt/media/Music/FM radio/.gitignore"
-rm -f $RPM_BUILD_ROOT"/opt/media/Music/Voice recorder/.gitignore"
-rm -f $RPM_BUILD_ROOT"/opt/media/Camera shots/.gitignore"
-
 
 %post
-#create db
+if [ ! -d /opt/dbspace ]; then  
+    mkdir -p /opt/dbspace  
+fi
 
-if  [ ! -f /opt/dbspace/.media.db ]
-then
-	sqlite3 /opt/dbspace/.media.db 'PRAGMA journal_mode = PERSIST;
+rm -rf /opt/dbspace/.media.db*
+sqlite3 /opt/dbspace/.media.db 'PRAGMA journal_mode = PERSIST;
 	CREATE TABLE visual_folder(folder_uuid VARCHAR(256) PRIMARY KEY, path VARCHAR(256), folder_name VARCHAR(256), modified_date INT, web_account_id VARCHAR(256), storage_type INT, sns_type INT, lock_status INT, web_album_id VARCHAR(256), valid INT, unique(path, folder_name, web_album_id, storage_type) );
 	INSERT INTO "visual_folder" VALUES("31e8854f-fa38-499c-ad0b-ebd7fc195f72","/opt/media/Images","Images",946990496,"",0,0,0,"",1);
 	INSERT INTO "visual_folder" VALUES("e81fcc9c-ce4c-478c-b8de-6f3abc4219ae","/opt/media/Images/Wallpapers","Wallpapers",946990496,"",0,0,0,"",1);
@@ -93,9 +81,9 @@ then
 	CREATE TABLE web_streaming(_id INTEGER PRIMARY KEY AUTOINCREMENT, folder_id INT, folder_uuid VARCHAR(256), title VARCHAR(256), duration INT, url VARCHAR(256), thumb_path VARCHAR(256));
 	CREATE TABLE visual_tag_map(_id INTEGER PRIMARY KEY AUTOINCREMENT, visual_uuid VARCHAR(256), tag_id INT, unique( visual_uuid, tag_id) );
 	CREATE TABLE visual_tag(_id INTEGER PRIMARY KEY AUTOINCREMENT, tag_name VARCHAR(256), unique( tag_name) );
-	CREATE TABLE audio_media (audio_uuid text primary key, path text unique, thumbnail_path text, title text, album text, artist text, genre text, author text, year integer default -1, copyright text, description text, format text, bitrate integer default -1, track_num integer default -1, duration integer default -1, rating integer default 0, played_count integer default 0, last_played_time integer default -1, added_time integer, rated_time integer, album_rating integer default 0, modified_date integer default 0, size integer default 0, category INTEGER default 0, valid integer default 0, folder_uuid TEXT NOT NULL, storage_type integer, favourite   integer default 0, content_type integer default 3);
+	CREATE TABLE audio_media (audio_uuid text primary key, path text unique, file_name text, thumbnail_path text, title text, album text, artist text, genre text, author text, year integer default -1, copyright text, description text, format text, bitrate integer default -1, track_num integer default -1, duration integer default -1, rating integer default 0, played_count integer default 0, last_played_time integer default -1, added_time integer, rated_time integer, album_rating integer default 0, modified_date integer default 0, size integer default 0, category INTEGER default 0, valid integer default 0, folder_uuid TEXT NOT NULL, storage_type integer, favourite   integer default 0, content_type integer default 3);
 	CREATE TABLE audio_folder (folder_uuid TEXT primary key, path text, folder_name text, storage_type integer, modified_date integer default 0);
-	CREATE TABLE audio_playlists (_id integer primary key autoincrement, name text);
+	CREATE TABLE audio_playlists (_id integer primary key autoincrement, name TEXT NOT NULL UNIQUE);
 	CREATE TABLE audio_playlists_map (_id integer primary key autoincrement, playlist_id integer, audio_uuid TEXT NOT NULL, play_order INTEGER);
 	DELETE FROM sqlite_sequence;
 	INSERT INTO "sqlite_sequence" VALUES("image_meta",19);
@@ -106,54 +94,41 @@ then
 	CREATE INDEX mid_idx on visual_media(visual_uuid);
 	CREATE VIEW item_view AS select visual_uuid as item_id, path as file_path, display_name,thumbnail_path as thumbnail,modified_date as date_modified, folder_uuid, rating as favourite, content_type from visual_media where valid=1 union select  audio_uuid ,path ,title ,thumbnail_path, modified_date, folder_uuid, favourite, content_type from audio_media;
 	CREATE VIEW mediainfo_folder AS select folder_uuid, path, folder_name as name, storage_type from visual_folder where valid=1 union select folder_uuid, path, folder_name, storage_type from audio_folder;
-
 '
-fi
 
+chgrp 6017 /opt/dbspace/.media.db
+chgrp 6017 /opt/dbspace/.media.db-journal
 
-if  [ -f /opt/dbspace/.media.db ]
-then
-	chown root:6017 /opt/dbspace/.media.db
-	chown root:6017 /opt/dbspace/.media.db-journal
-	chmod 664 /opt/dbspace/.media.db
-	chmod 664 /opt/dbspace/.media.db-journal
-fi
-
+chmod 664 /opt/dbspace/.media.db
+chmod 664 /opt/dbspace/.media.db-journal
 
 chgrp 5000 /opt/data/file-manager-service/.thumb
 chgrp 5000 /opt/data/file-manager-service/.thumb/phone
 chgrp 5000 /opt/data/file-manager-service/.thumb/mmc
 
+##resources
+chown :5000 /opt/dbspace
+chown :5000 /opt/data/file-manager-service/.thumb/phone/.[a-z0-9]*.*
 
+##resources
+chmod 775 /opt/data/file-manager-service/.thumb
+chmod 775 /opt/data/file-manager-service/.thumb/phone
+chmod 775 /opt/data/file-manager-service/.thumb/mmc
+rm /opt/media/Downloads/.gitignore
+rm /opt/media/Music/.gitignore
+rm /opt/media/Videos/.gitignore
+rm /opt/media/Camera\ shots/.gitignore
+rm /opt/media/Music/Voice\ recorder/.gitignore
+rm /opt/media/Music/FM\ Radio/.gitignore
+rm /opt/media/Bookmark/.gitignore
+rm /opt/media/RSS/.gitignore
+rm /opt/media/Alerts\ and\ ringtones/Alerts/*.*
+rm /opt/media/Alerts\ and\ ringtones/Ringtones/*.*
 
 %files
-%dir %attr(775,root,inhouse) %{_optdir}/data/file-manager-service/.thumb
-%dir %attr(775,root,inhouse) %{_optdir}/data/file-manager-service/.thumb/phone
-%dir %attr(775,root,inhouse) %{_optdir}/data/file-manager-service/.thumb/mmc
-%attr(775,root,inhouse) /opt/data/file-manager-service/.thumb/thumb_default.png
-%attr(775,root,inhouse) /opt/data/file-manager-service/.thumb/phone/.[a-z0-9]*.*
-/opt/data/file-manager-service/.thumb/phone/PHONE_THUMB_HERE
-%attr(775,root,inhouse) /opt/data/file-manager-service/.thumb/mmc/*
-%{_optdir}/share/settings/Ringtones/*
-%{_optdir}/share/settings/Wallpapers/*
-%{_optdir}/share/settings/Alerts/*
-"/opt/media/Alerts and ringtones/Alerts/General notification_sdk.wav"
-"/opt/media/Alerts and ringtones/Ringtones/General_Over the horizon.mp3"
-/opt/media/Images/Wallpapers/Default.jpg
-/opt/media/Images/Wallpapers/Home_default.jpg
-/opt/media/Images/image1.jpg
-/opt/media/Images/image10.jpg
-/opt/media/Images/image11.jpg
-/opt/media/Images/image12.jpg
-/opt/media/Images/image13.jpg
-/opt/media/Images/image14.jpg
-/opt/media/Images/image15.jpg
-/opt/media/Images/image16.jpg
-/opt/media/Images/image2.jpg
-/opt/media/Images/image3.jpg
-/opt/media/Images/image4.jpg
-/opt/media/Images/image5.jpg
-/opt/media/Images/image6.jpg
-/opt/media/Images/image7.jpg
-/opt/media/Images/image8.jpg
-/opt/media/Images/image9.jpg
+%defattr(-,root,root,-)
+%{_optdir}/data/file-manager-service/plugin-config
+%{_optdir}/data/file-manager-service/.thumb/*
+%{_optdir}/share/settings/*
+%{_optdir}/media/*
+
