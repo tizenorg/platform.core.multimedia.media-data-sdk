@@ -8,6 +8,7 @@ Release:    1
 Group:      Service  
 License:    Apache-2.0  
 Source0:    %{name}-%{version}.tar.gz
+Source1001: packaging/media-data-sdk.manifest 
 BuildRequires: cmake
 
 
@@ -22,6 +23,7 @@ LDFLAGS+="-Wl,--rpath=%{PREFIX}/lib -Wl,--as-needed -Wl,--hash-style=both"; expo
 cmake . -DCMAKE_INSTALL_PREFIX=%{_optdir}
 
 %build
+cp %{SOURCE1001} .
 make %{?jobs:-j%jobs}
 
 %install
@@ -126,6 +128,7 @@ rm /opt/media/Alerts\ and\ ringtones/Alerts/*.*
 rm /opt/media/Alerts\ and\ ringtones/Ringtones/*.*
 
 %files
+%manifest media-data-sdk.manifest
 %defattr(-,root,root,-)
 %{_optdir}/data/file-manager-service/plugin-config
 %{_optdir}/data/file-manager-service/.thumb/*
