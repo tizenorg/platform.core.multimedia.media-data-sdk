@@ -10,6 +10,11 @@ License:    Apache-2.0
 Source0:    %{name}-%{version}.tar.gz
 Source1001: packaging/media-data-sdk.manifest 
 BuildRequires: cmake
+Requires(post): /bin/mkdir
+Requires(post): /bin/rm
+Requires(post): /bin/chmod
+Requires(post): /bin/chown
+Requires(post): /bin/chgrp
 
 
 %description
