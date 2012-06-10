@@ -1,3 +1,27 @@
-* Fri June 08 2012 Yan Yin <yan.yin@intel.com> - 0.1.13
-- add Requires(post)
-- tigger submission to OBS
+* Sun Jun 10 2012 Anas Nashif <anas.nashif@intel.com> 463f00a
+- clean up spec file, fixed build
+
+* Fri Jun 08 2012 Yan Yin <yan.yin@intel.com> 74198e5
+- add Requires(post), tigger submission to OBS
+
+* Wed May 30 2012 Ryan Ware <ryan.r.ware@intel.com> 842a86c
+- Add default Smack manifest for media-data-sdk.spec
+
+* Sun Apr 29 2012 Kim Kibum <kb0929.kim@samsung.com> 125a019
+- upload tizen1.0 source
+
+* Wed Mar 14 2012 Yan Yin <yan.yin@intel.com> a5420b6
+- update for beta universally
+
+* Tue Feb 21 2012 Yong Yeon Kim <yy9875.kim@samsung.com> 1c04c36
+- fix bug
+
+* Fri Feb 10 2012 Yong Yeon Kim <yy9875.kim@samsung.com> 039cc84
+- modify changelog
+- for beta release
+
+* Fri Jan 06 2012 Kibum Kim <kb0929.kim@samsung.com> 6eb6d81
+- Git init
+[ Eunkyoung Kim ]
+- Initial empty repository
+

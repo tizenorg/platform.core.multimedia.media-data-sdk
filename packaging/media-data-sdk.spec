@@ -1,43 +1,46 @@
-#sbs-git:slp/pkgs/m/media-data media-data 0.1.91 bf79c07d3fb5086d1bf9a99771a956c804a5a736
 %define _optdir	/opt
 
-Name:       media-data-sdk
-Summary:    Media data for SDK. Image/Sounds/Videos and Others.
-Version: 0.1.13
-Release:    1
-Group:      Service  
-License:    Apache-2.0  
-Source0:    %{name}-%{version}.tar.gz
-Source1001: packaging/media-data-sdk.manifest 
-BuildRequires: cmake
+Name:           media-data-sdk
+Version:        0.1.13
+Release:        1
+License:        Apache-2.0
+Summary:        Media data for SDK
+Group:          Service
+Source0:        %{name}-%{version}.tar.gz
+Source1001:     packaging/media-data-sdk.manifest
+BuildRequires:  cmake
 Requires(post): /bin/mkdir
 Requires(post): /bin/rm
 Requires(post): /bin/chmod
 Requires(post): /bin/chown
 Requires(post): /bin/chgrp
 
-
 %description
 Description: Media data for SDK. Image/Sounds/Videos and Others.
 
-
 %prep
 %setup -q
-LDFLAGS+="-Wl,--rpath=%{PREFIX}/lib -Wl,--as-needed -Wl,--hash-style=both"; export LDFLAGS
-
-cmake . -DCMAKE_INSTALL_PREFIX=%{_optdir}
 
 %build
 cp %{SOURCE1001} .
-make %{?jobs:-j%jobs}
+LDFLAGS+="-Wl,--rpath=%{PREFIX}/lib -Wl,--as-needed -Wl,--hash-style=both"; export LDFLAGS
+
+cmake . -DCMAKE_INSTALL_PREFIX=%{_optdir}
+mkdir data/Bookmark  
+mkdir data/Camera\ shots  
+mkdir data/Downloads  
+mkdir data/Music  
+mkdir data/Music/FM\ radio  
+mkdir data/RSS  
+mkdir data/Videos 
+make %{?_smp_mflags}
 
 %install
 %make_install
 
-
 %post
-if [ ! -d /opt/dbspace ]; then  
-    mkdir -p /opt/dbspace  
+if [ ! -d /opt/dbspace ]; then
+    mkdir -p /opt/dbspace
 fi
 
 rm -rf /opt/dbspace/.media.db*
@@ -134,7 +137,6 @@ rm /opt/media/Alerts\ and\ ringtones/Ringtones/*.*
 
 %files
 %manifest media-data-sdk.manifest
-%defattr(-,root,root,-)
 %{_optdir}/data/file-manager-service/plugin-config
 %{_optdir}/data/file-manager-service/.thumb/*
 %{_optdir}/share/settings/*
