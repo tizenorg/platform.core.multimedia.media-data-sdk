@@ -1,4 +1,3 @@
-#sbs-git:slp/pkgs/m/media-data media-data 0.1.91 bf79c07d3fb5086d1bf9a99771a956c804a5a736
 %define _optdir	/opt
 
 Name:       media-data-sdk
@@ -131,18 +130,17 @@ chgrp 5000 /opt/dbspace
 chgrp 6017 /opt/dbspace/.media.db
 chgrp 6017 /opt/dbspace/.media.db-journal
 chgrp 5000 /opt/data/file-manager-service/
-chgrp 5000 /opt/data/file-manager-service/.thumb:
+chgrp 5000 /opt/data/file-manager-service/.thumb
 chgrp 5000 /opt/data/file-manager-service/.thumb/phone
 chgrp 5000 /opt/data/file-manager-service/.thumb/phone/.[a-z0-9]*.*
 chgrp 5000 /opt/data/file-manager-service/.thumb/mmc
 
 ##delete unusing files
 rm /opt/media/Downloads/.gitignore
-rm /opt/media/Music/.gitignore
 rm /opt/media/Videos/.gitignore
 rm /opt/media/Camera/.gitignore
 rm /opt/media/Sounds/Voice\ recorder/.gitignore
-rm /opt/media/Sounds/FM\ Radio/.gitignore
+rm /opt/media/Sounds/FM\ radio/.gitignore
 
 %files
 %defattr(-,root,root,-)
