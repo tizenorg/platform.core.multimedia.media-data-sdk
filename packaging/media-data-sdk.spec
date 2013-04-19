@@ -2,7 +2,7 @@
 
 Name:       media-data-sdk
 Summary:    Media data for SDK. Image/Sounds/Videos and Others.
-Version: 0.1.41
+Version: 0.1.42
 Release:    1
 Group:      TO_BE/FILLED_IN
 License:    Apache License, Version 2.0
@@ -25,6 +25,9 @@ make %{?jobs:-j%jobs}
 
 %install
 %make_install
+
+##change permission install files
+chmod 666 %{buildroot}/opt/usr/media/Images/*
 
 ##delete unusing files
 rm %{buildroot}/opt/usr/media/Downloads/.gitignore
@@ -128,6 +131,7 @@ chmod 775 /opt/usr/data/file-manager-service
 chmod 775 /opt/usr/data/file-manager-service/.thumb
 chmod 775 /opt/usr/data/file-manager-service/.thumb/phone
 chmod 775 /opt/usr/data/file-manager-service/.thumb/mmc
+chmod 666 /opt/usr/media/Images/*
 
 #change owner
 chown -R 5000:5000 /opt/usr/media/*
