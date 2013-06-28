@@ -7,6 +7,7 @@ Release:    1
 Group:      TO_BE/FILLED_IN
 License:    Apache License, Version 2.0
 Source0:    %{name}-%{version}.tar.gz
+Source1001: 	media-data-sdk.manifest
 Requires(post): coreutils
 Requires(post): sqlite
 BuildRequires: cmake
@@ -16,6 +17,7 @@ Description: Media data for SDK. Image/Sounds/Videos and Others.
 
 %prep
 %setup -q
+cp %{SOURCE1001} .
 LDFLAGS+="-Wl,--rpath=%{PREFIX}/lib -Wl,--as-needed -Wl,--hash-style=both"; export LDFLAGS
 
 cmake . -DCMAKE_INSTALL_PREFIX=%{_optdir}
@@ -153,7 +155,7 @@ then
 fi
 
 %files
-%manifest media-data-sdk.manifest
+%manifest %{name}.manifest
 %defattr(-,root,root,-)
 %{_optdir}/data/file-manager-service/plugin-config
 %{_optdir}/data/file-manager-service/.thumb/*
