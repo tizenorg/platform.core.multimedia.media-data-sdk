@@ -147,11 +147,6 @@ chgrp 5000 /opt/usr/data/file-manager-service/.thumb/phone/.[a-z0-9]*.*
 chgrp 5000 /opt/usr/data/file-manager-service/.thumb/mmc
 
 #for SMACK
-if [ -f /opt/usr/dbspace/.media.db ]
-then
-	chsmack -a 'media-data::db' /opt/usr/dbspace/.media.db*
-fi
-
 %files
 %manifest media-data-sdk.manifest
 %defattr(-,root,root,-)
