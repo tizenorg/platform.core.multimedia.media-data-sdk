@@ -48,7 +48,7 @@ sqlite3 %{buildroot}/opt/usr/dbspace/.media.db 'PRAGMA journal_mode = PERSIST;
 	CREATE TABLE IF NOT EXISTS playlist ( playlist_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL UNIQUE, thumbnail_path TEXT );
 	CREATE TABLE IF NOT EXISTS playlist_map ( _id INTEGER PRIMARY KEY AUTOINCREMENT, playlist_id INTEGER NOT NULL, media_uuid TEXT NOT NULL, play_order INTEGER NOT NULL );
 	CREATE TABLE IF NOT EXISTS tag ( tag_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL UNIQUE );
-	CREATE TABLE IF NOT EXISTS tag_map ( _id INTEGER PRIMARY KEY AUTOINCREMENT, tag_id INTEGER NOT NULL, media_uuid TEXT NOT NULL, unique(tag_id, media_uuid) );
+	CREATE TABLE IF NOT EXISTS tag_map ( _id INTEGER PRIMARY KEY AUTOINCREMENT, tag_id INTEGER NOT NULL, media_uuid TEXT NOT NULL, tag_time INTEGER DEFAULT 0, unique(tag_id, media_uuid) );
 	CREATE INDEX folder_folder_uuid_idx on folder (folder_uuid);
 	CREATE INDEX folder_uuid_idx on media (folder_uuid);
 	CREATE INDEX media_album_idx on media (album);
@@ -82,14 +82,14 @@ sqlite3 %{buildroot}/opt/usr/dbspace/.media.db 'PRAGMA journal_mode = PERSIST;
 
 	CREATE VIEW IF NOT EXISTS tag_view AS
 	SELECT 
-	t.tag_id, t.name, media_count, tm._id as tm_id, m.media_uuid, path, file_name, media_type, mime_type, size, added_time, modified_time, thumbnail_path, description, rating, favourite, author, provider, content_name, category, location_tag, age_rating, keyword, is_drm, storage_type, longitude, latitude, altitude, width, height, datetaken, orientation, title, album, artist, genre, composer, year, recorded_date, copyright, track_num, bitrate, duration, played_count, last_played_time, last_played_position, samplerate, channel FROM tag AS t 
+	t.tag_id, t.name, media_count, tm._id as tm_id, tm.tag_time, m.media_uuid, path, file_name, media_type, mime_type, size, added_time, modified_time, thumbnail_path, description, rating, favourite, author, provider, content_name, category, location_tag, age_rating, keyword, is_drm, storage_type, longitude, latitude, altitude, width, height, datetaken, orientation, title, album, artist, genre, composer, year, recorded_date, copyright, track_num, bitrate, duration, played_count, last_played_time, last_played_position, samplerate, channel FROM tag AS t 
 	INNER JOIN tag_map AS tm 
 	INNER JOIN media AS m 
 	INNER JOIN (SELECT count(tag_id) as media_count, tag_id FROM tag_map group by tag_id) as cnt_tbl
 		ON (t.tag_id=tm.tag_id AND tm.media_uuid = m.media_uuid AND cnt_tbl.tag_id=tm.tag_id AND m.validity=1)
 	UNION
 	SELECT 
-		tag_id, name, 0, 0,  NULL, NULL, -1, -1, -1, -1, -1, NULL, NULL, -1, -1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, -1, -1, -1, -1, -1, -1, -1, -1, -1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, -1, -1, -1, -1, -1, -1, NULL, -1 FROM tag 
+		tag_id, name, 0, 0, 0, NULL, NULL, -1, -1, -1, -1, -1, NULL, NULL, -1, -1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, -1, -1, -1, -1, -1, -1, -1, -1, -1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, -1, -1, -1, -1, -1, -1, NULL, -1 FROM tag 
 	WHERE tag_id 
 	NOT IN (select tag_id from tag_map); 
 
