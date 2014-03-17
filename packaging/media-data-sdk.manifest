@@ -1,5 +1,10 @@
 <manifest>
  <request>
-    <domain name="_"/>
+    <!-- -->
+    <!-- It is highly unusual to specify a domain for the entire package -->
+    <!-- This package supplies nothing but data, all of which should be -->
+    <!-- in the User domain. -->
+    <!-- -->
+    <domain name="User"/>
  </request>
 </manifest>
