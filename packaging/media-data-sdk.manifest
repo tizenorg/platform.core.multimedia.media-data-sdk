@@ -7,4 +7,7 @@
     <!-- -->
     <domain name="User"/>
  </request>
+ <assign>
+    <filesystem path="/opt/usr/dbspace/.media.db*" label="System" />
+ </assign>
 </manifest>
